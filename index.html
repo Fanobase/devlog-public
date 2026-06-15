@@ -29,7 +29,10 @@
   let pages = null;
 
   async function unlock(password) {
-    const buf = new Uint8Array(await (await fetch('data.bin')).arrayBuffer());
+    // no-cache => revalidate against the server (cheap 304 via ETag when
+    // unchanged), so a fresh deploy shows up immediately instead of being
+    // masked by the 10-minute GitHub Pages cache.
+    const buf = new Uint8Array(await (await fetch('data.bin', { cache: 'no-cache' })).arrayBuffer());
     const salt = buf.slice(0, 16), iv = buf.slice(16, 28), ct = buf.slice(28);
     const km = await crypto.subtle.importKey(
       'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
