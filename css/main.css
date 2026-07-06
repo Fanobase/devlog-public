@@ -59,6 +59,17 @@ a:hover { color: var(--accent-strong); text-decoration: underline; text-underlin
 main h2 { font-size: 1.3rem; margin-top: 2rem; padding-bottom: 0.2em; border-bottom: 1px solid var(--rule); }
 main h3 { font-size: 1.1rem; margin-top: 1.5rem; }
 
+/* ---- GitHub-style linkable headings (see layouts/_default/_markup/render-heading.html) ---- */
+main :is(h1, h2, h3, h4, h5, h6) { position: relative; scroll-margin-top: 1rem; }
+.heading-anchor {
+  position: absolute; right: 100%; margin-right: 0.15em;
+  text-decoration: none; font-weight: 400;
+  color: var(--muted); opacity: 0; transition: opacity 0.12s;
+}
+main :is(h1, h2, h3, h4, h5, h6):hover > .heading-anchor,
+.heading-anchor:focus { opacity: 0.55; }
+.heading-anchor:hover { opacity: 1; }
+
 /* ---- the intro blurb on the homepage ---- */
 .intro { color: var(--text); font-size: 1.05rem; }
 .intro p:first-child { margin-top: 0; }
